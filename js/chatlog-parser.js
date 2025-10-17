@@ -185,7 +185,7 @@ $(document).ready(function() {
 
         chatLines.forEach((line) => {
             // Skip animation stop messages
-            if (line.includes("Use /anim stop to stop animations and remove items from your hands.")) {
+            if (line.includes("Animasyonları durdurmak ve elinde bulunan eşyaları kaldırmak için /anim stop komutunu kullanabilirsin.")) {
                 return;
             }
 
@@ -200,17 +200,17 @@ $(document).ready(function() {
             }
 
             // Skip unfreeze instructions
-            if (line.includes("⚠️You can now press K to unfreeze yourself. Do not hold W while doing so.")) {
+            if (line.includes("⚠️Artık dondurmanızı kaldırmak için K tuşuna basabilirsiniz. Bunu yaparken W tuşuna basılı tutmayın.")) {
                 return;
             }
 
             // Skip animation stop info
-            if (line.includes("[INFO] If this doesn't work, use .stop or /anim stop.")) {
+            if (line.includes("[BİLGİ] Eğer çalışmazsa .stop veya /anim stop komutunu kullan.")) {
                 return;
             }
 
             // Skip vehicle teleport info
-            if (line.includes("You may now use /vget, your vehicle will be automatically teleported on you.")) {
+            if (line.includes("Artık /vget komutunu kullanabilirsin.")) {
                 return;
             }
 
@@ -220,22 +220,22 @@ $(document).ready(function() {
             }
 
             // Skip hat info
-            if (line.includes("[INFO] You can also use /hat custom1-5 to pick one of your saved favourite hats!")) {
+            if (line.includes("Kaydettiğin favori şapkanı giymek için /şapka özel1-5 komutunu kullanabilirsin.")) {
                 return;
             }
 
             // Skip animation error
-            if (line.includes("[ERROR] That animation was not found.")) {
+            if (line.includes("[HATA] Belirtilen animasyon bulunamadı.")) {
                 return;
             }
 
             // Skip phone locked error
-            if (line.includes("[ERROR] This phone is locked.")) {
+            if (line.includes("[HATA] Bu telefon kilitli.")) {
                 return;
             }
 
             // Skip F2/F3 instructions
-            if (line.includes("Use F2 to re-enable the chat and use F3 to activate the cursor. You can also use /pc for the cursor.")) {
+            if (line.includes("Sohbeti yeniden başlatmak için F2'yi ve imleci görünür yapmak için F3'ü kullanabilirsin. F3 çalışmıyorsa /pc komutunu kullanın.")) {
                 return;
             }
 
@@ -568,8 +568,8 @@ $(document).ready(function() {
             return wrapSpan("ame", cleanMessage);
         }
 
-        if (line.includes("'s attempt has")) {
-            if (line.includes("succeeded")) {
+        if (line.includes("denemesi")) {
+            if (line.includes("başarılı")) {
                 const parts = line.match(/^(\* .+?'s attempt has )(succeeded\. )(\(\()(\d+%)(\)\))$/);
                 if (parts) {
                     const [_, prefix, successWithDot, openParen, percent, closeParen] = parts;
@@ -578,7 +578,7 @@ $(document).ready(function() {
                            wrapSpan("white", openParen + percent + closeParen);
                 }
             }
-            if (line.includes("failed")) {
+            if (line.includes("başarısız")) {
                 const parts = line.match(/^(\* .+?'s attempt has )(failed\. )(\(\()(\d+%)(\)\))$/);
                 if (parts) {
                     const [_, prefix, failWithDot, openParen, percent, closeParen] = parts;
@@ -589,8 +589,8 @@ $(document).ready(function() {
             }
         }
 
-        if (line.startsWith("[INFO]:") && line.includes("[") && line.includes("/")) {
-            const match = line.match(/^(\[INFO\]:)\s*(\[\d{2}\/[A-Z]{3}\/\d{4}\])\s*(.+)$/);
+        if (line.startsWith("[BİLGİ]:") && line.includes("[") && line.includes("/")) {
+            const match = line.match(/^(\[BİLGİ\]:)\s*(\[\d{2}\/[A-Z]{3}\/\d{4}\])\s*(.+)$/);
             if (match) {
                 const [_, info, date, message] = match;
                 return wrapSpan("blue", info) + " " + wrapSpan("orange", date) + " " + wrapSpan("white", message);
@@ -632,7 +632,7 @@ $(document).ready(function() {
                 : wrapSpan("radioColor2", line);
         }
 
-                    if (lowerLine.includes("says [lower]")) {
+                    if (lowerLine.includes("(alçak ses):")) {
                 if (!currentCharacterName || disableCharacterNameColoring) {
                     return wrapSpan("grey", line);
                 }
@@ -641,7 +641,7 @@ $(document).ready(function() {
                     : wrapSpan("darkgrey", line);
             }
 
-            if (lowerLine.includes("says [low]:")) {
+            if (lowerLine.includes("(kısık ses):")) {
                 if (!currentCharacterName || disableCharacterNameColoring) {
                     return wrapSpan("lightgrey", line);
                 }
@@ -663,7 +663,7 @@ $(document).ready(function() {
                 return wrapSpan("grey", line);
             }
 
-        if (line.includes("says [low] (phone):") || line.includes("says (phone):")) {
+        if (line.includes("(kısık ses) (telefon):") || line.includes("(telefon):")) {
             if (currentCharacterName && line.toLowerCase().includes(currentCharacterName.toLowerCase())) {
                 return wrapSpan("white", line);
             } else {
@@ -706,9 +706,9 @@ $(document).ready(function() {
             return wrapSpan("blue", line);
         }
 
-        if (line.startsWith("Age range:")) {
-            const parts = line.split("Age range:");
-            return wrapSpan("blue", "Age range:") + wrapSpan("white", parts[1]);
+        if (line.startsWith("Yaş aralığı:")) {
+            const parts = line.split("Yaş aralığı:");
+            return wrapSpan("blue", "Yaş aralığı:") + wrapSpan("white", parts[1]);
         }
 
         if (line.startsWith("->")) {
@@ -716,9 +716,9 @@ $(document).ready(function() {
             return wrapSpan("blue", "->") + wrapSpan("white", parts[1]);
         }
 
-        if (line.startsWith("[INFO]")) {
-            const parts = line.split("[INFO]");
-            return wrapSpan("blue", "[INFO]") + wrapSpan("white", parts[1]);
+        if (line.startsWith("[BİLGİ]")) {
+            const parts = line.split("[BİLGİ]");
+            return wrapSpan("blue", "[BİLGİ]") + wrapSpan("white", parts[1]);
         }
 
         if (line.match(/^___Tattoos description of .+___$/)) {
@@ -730,7 +730,7 @@ $(document).ready(function() {
             return wrapSpan("green", "[CASHTAP]") + wrapSpan("white", parts[1]);
         }
 
-        if (line.match(/\|------ .+'s Items \d{2}\/[A-Z]{3}\/\d{4} - \d{2}:\d{2}:\d{2} ------\|/)) {
+        if (line.match(/\|------ .+kişisinin eşyaları \d{2}\/[A-Z]{3}\/\d{4} - \d{2}:\d{2}:\d{2} ------\|/)) {
             return wrapSpan("green", line);
         }
 
@@ -744,8 +744,8 @@ $(document).ready(function() {
                 }
             }
 
-            if (line.includes("Money ($")) {
-                const moneyMatch = line.match(/^(\d+: Money \()(\$\d+(?:,\d{3})*)(\) \(\d+g\))$/);
+            if (line.includes("Para ($")) {
+                const moneyMatch = line.match(/^(\d+: Para \()(\$\d+(?:,\d{3})*)(\) \(\d+g\))$/);
                 if (moneyMatch) {
                     const [_, prefix, amount, suffix] = moneyMatch;
                     return wrapSpan("yellow", prefix) + wrapSpan("green", amount) + wrapSpan("yellow", suffix);
@@ -754,11 +754,11 @@ $(document).ready(function() {
             return wrapSpan("yellow", line);
         }
 
-        if (lowerLine.startsWith("total weight:")) {
+        if (lowerLine.startsWith("Toplam Ağırlık:")) {
             return wrapSpan("yellow", line);
         }
 
-        if (lowerLine.startsWith("money on hand:")) {
+        if (lowerLine.startsWith("Elinizdeki para:")) {
             return wrapSpan("green", line);
         }
 
@@ -789,7 +789,7 @@ $(document).ready(function() {
             return formatPoliceMDC(line);
         }
 
-        if (/\([^\)]+\) Message from [^:]+: .+/.test(line)) {
+        if (/\([^\)]+\) kişisinden mesaj [^:]+: .+/.test(line)) {
             return formatSmsMessage(line);
         }
 
@@ -821,7 +821,7 @@ $(document).ready(function() {
 
         if (line.startsWith(">")) return wrapSpan("ame", line);
 
-        if (lowerLine.includes("(phone) *")) return wrapSpan("me", line);
+        if (lowerLine.includes("(telefon) *")) return wrapSpan("me", line);
 
         if (lowerLine.includes("whispers") || line.startsWith("(Car)")) {
             return handleWhispers(line);
@@ -849,10 +849,10 @@ $(document).ready(function() {
                 }
             } else {
 
-                const parts = line.match(/\[STREET\] Street name: (.+?) \| Zone: ([^.]+)(\.)/);
+                const parts = line.match(/\[STREET\] Sokak ismi: (.+?) \| Zone: ([^.]+)(\.)/);
                 if (parts) {
                     const [_, street, zone, dot] = parts;
-                    return `${wrapSpan("blue", "[STREET]")} Street name: ${wrapSpan("orange", street)} | Zone: ${wrapSpan("orange", zone)}${dot}`;
+                    return `${wrapSpan("blue", "[STREET]")} Sokak ismi: ${wrapSpan("orange", street)} | Zone: ${wrapSpan("orange", zone)}${dot}`;
                 }
             }
         }
@@ -899,11 +899,11 @@ $(document).ready(function() {
             lowerLine.includes("you received"))
             return handleTransaction(line);
 
-        if (lowerLine.includes("you are now masked")) return wrapSpan("green", line);
+        if (lowerLine.includes("Maske taktın.")) return wrapSpan("green", line);
 
-        if (lowerLine.includes("you have shown your inventory")) return wrapSpan("green", line);
+        if (lowerLine.includes("Envanterini bu kişiye gösterdin:")) return wrapSpan("green", line);
 
-        if (lowerLine.includes("you are not masked anymore")) return wrapSpan("death", line);
+        if (lowerLine.includes("Maskeni çıkardın.")) return wrapSpan("death", line);
 
         if (lowerLine.includes("you're being robbed, use /arob")) return formatRobbery(line);
 
@@ -1129,7 +1129,7 @@ $(document).ready(function() {
                    wrapSpan("white", time);
         }
         
-        if (line.startsWith("Temperature:")) {
+        if (line.startsWith("Sıcaklık:")) {
             const tempMatch = line.match(/^Temperature:\s*([\d.]+°C)\s*\(([\d.]+°?F)\),\s*it\s*is\s*currently\s*([^.]+)\.?$/);
             if (tempMatch) {
                 const [_, tempC, tempF, condition] = tempMatch;
@@ -1221,7 +1221,7 @@ $(document).ready(function() {
         if (moneyMatch) {
             const objectMatch = line.match(/from the (.+)\.$/i);
             return objectMatch ?
-                `<span class="orange">Info:</span> <span class="white">You took</span> <span class="green">$${escapeHTML(moneyMatch[1])}</span> <span class="white">from the ${escapeHTML(objectMatch[1])}</span>.` :
+                `<span class="orange">BİLGİ:</span> <span class="white">You took</span> <span class="green">$${escapeHTML(moneyMatch[1])}</span> <span class="white">from the ${escapeHTML(objectMatch[1])}</span>.` :
                 line;
         }
 
@@ -1238,7 +1238,7 @@ $(document).ready(function() {
 
     function formatSmsMessage(line) {
         // Match the pattern: (phone) Message from sender: content
-        const match = line.match(/^\(([^)]+)\)\s+Message from ([^:]+):\s*(.+)$/);
+        const match = line.match(/^(.+?)\s+kişisinden mesaj:\s*(.+)$/);
         
         if (match) {
             const phone = match[1];
@@ -1248,7 +1248,7 @@ $(document).ready(function() {
             // Remove brackets only from the phone identifier, preserve them in the message
             const cleanPhone = phone.replace(/[\[\]]/g, '');
             
-            return wrapSpan('yellow', `(${cleanPhone}) Message from ${sender}: ${message}`);
+            return wrapSpan('yellow', `(${cleanPhone}) ${sender} kişisinden mesaj: ${message}`);
         }
         
         // Fallback: if pattern doesn't match, just remove brackets from the whole line
@@ -1258,12 +1258,12 @@ $(document).ready(function() {
 
     function formatPhoneSet(line) {
 
-        line = line.replace(/\[(?!INFO\])|\](?!)/g, '');
+        line = line.replace(/\[(?!BİLGİ\])|\](?!)/g, '');
 
-        line = line.replace('[INFO]', '<span class="green">[INFO]</span>');
+        line = line.replace('[BİLGİ]', '<span class="green">[BİLGİ]</span>');
 
-        const infoTag = '<span class="green">[INFO]</span>';
-        const restOfLine = escapeHTML(line.replace(/\[INFO\]/, '').trim());
+        const infoTag = '<span class="green">[BİLGİ]</span>';
+        const restOfLine = escapeHTML(line.replace(/\[BİLGİ\]/, '').trim());
         return infoTag + ' <span class="white">' + restOfLine + '</span>';
     }
 
@@ -1271,14 +1271,14 @@ $(document).ready(function() {
 
         line = line.replace(/[\[\]]/g, '');
 
-        const match = line.match(/\(([^)]+)\) Incoming call from (.+)\. Use (.+) to answer or (.+) to decline\./);
+        const pattern = /^(.+?)\s+tarafından gelen çağrı\.\s+Açmak için\s+\(([^)]+)\)[^)]+\s+veya\s+kapatmak için\s+\(([^)]+)\)[^)]+\.$/;
         if (match) {
             const parenthetical = escapeHTML(match[1]);
             const caller = escapeHTML(match[2]);
             const pickupCommand = escapeHTML(match[3]);
             const hangupCommand = escapeHTML(match[4]);
 
-            return '<span class="yellow">(' + parenthetical + ')</span> <span class="white">Incoming call from </span><span class="yellow">' + caller + '</span><span class="white">. Use ' + pickupCommand + ' to answer or ' + hangupCommand + ' to decline.</span>';
+            return '<span class="yellow">' + caller + '</span><span class="white"> tarafından gelen çağrı. Açmak için </span><span class="yellow">(' + pickupCommand + ')</span><span class="white"> veya kapatmak için </span><span class="yellow">(' + hangupCommand + ')</span><span class="white">.</span>';
         } else {
             return '<span class="white">' + escapeHTML(line) + '</span>';
         }
@@ -1287,7 +1287,7 @@ $(document).ready(function() {
     function colorInfoLine(line) {
 
         line = line.replace(/\[(?!INFO\])|(?<!INFO)\]/g, '');
-        line = line.replace('[INFO]', '<span class="blue">[INFO]</span>');
+        line = line.replace('[BİLGİ]', '<span class="blue">[BİLGİ]</span>');
 
         if (line.includes('You have received a contact')) {
             if (line.includes('/acceptnumber')) {
@@ -1305,7 +1305,8 @@ $(document).ready(function() {
     }
 
     function applyPhoneRequestFormatting(line) {
-        const pattern = /\[INFO\] You have received a contact \((.+), ([^\)]+)\) from (.+)\. Use (\/acceptnumber) to accept it\./;
+        const match = line.match(/\[BİLGİ\]\s+(.+?)\s+adlı kişiden numara paylaşma isteği\s+\(([^,]+),\s*(\d+)\)\s+aldın\.\s+Kabul etmek için\s+(\/[^\s']+)'ı\s+kullanın\.$/);
+
 
         const match = line.match(pattern);
 
@@ -1322,7 +1323,8 @@ $(document).ready(function() {
     }
 
     function applyContactShareFormatting(line) {
-        const pattern = /\[INFO\] You have received a contact \((.+), ([^\)]+)\) from (.+)\. Use (\/acceptcontact) to accept it\./;
+        const pattern = /\[BİLGİ\]\s+(.*?)\s+adlı kişiden numara paylaşma isteği\s+\(([^,]+),\s*(\d+)\)\s+aldın\.\s+Kabul etmek için\s+(\/[^\s']+)'ı\s+kullanın\.$/;
+
 
         const match = line.match(pattern);
 
