@@ -1305,22 +1305,27 @@ $(document).ready(function() {
     }
 
     function applyPhoneRequestFormatting(line) {
-        const match = line.match(/\[BİLGİ\]\s+(.+?)\s+adlı kişiden numara paylaşma isteği\s+\(([^,]+),\s*(\d+)\)\s+aldın\.\s+Kabul etmek için\s+(\/[^\s']+)'ı\s+kullanın\.$/);
-
-
+        const pattern = /\[BİLGİ\]\s+(.+?)\s+adlı kişiden numara paylaşma isteği\s+\(([^,]+),\s*(\d+)\)\s+aldın\.\s+Kabul etmek için\s+(\/[^\s']+)'ı\s+kullanın\.$/;
         const match = line.match(pattern);
 
         if (match) {
-            const contactName = escapeHTML(match[1]);
-            const numbers = escapeHTML(match[2]);
-            const sender = escapeHTML(match[3]);
+            const sender = escapeHTML(match[1]);
+            const contactName = escapeHTML(match[2]);
+            const contactId = escapeHTML(match[3]);
             const acceptCommand = escapeHTML(match[4]);
 
-            return '<span class="blue">[INFO]</span> <span class="white">You have received a contact (' + contactName + ', ' + numbers + ') from ' + sender + '. Use ' + acceptCommand + ' to accept it.</span>';
+            return (
+                '<span class="blue">[BİLGİ]</span> ' +
+                '<span class="white">' +
+                sender + ' adlı kişiden numara paylaşma isteği ' +
+                '<span class="yellow">(' + contactName + ', ' + contactId + ')</span> ' +
+                'aldın. Kabul etmek için <span class="green">' + acceptCommand + '</span> komutunu kullan.</span>'
+            );
         } else {
             return line;
         }
     }
+
 
     function applyContactShareFormatting(line) {
         const pattern = /\[BİLGİ\]\s+(.*?)\s+adlı kişiden numara paylaşma isteği\s+\(([^,]+),\s*(\d+)\)\s+aldın\.\s+Kabul etmek için\s+(\/[^\s']+)'ı\s+kullanın\.$/;
